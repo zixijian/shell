@@ -1,5 +1,5 @@
 #!/bin/bash
-#例如 选择debian 8 64位为：./cndebian.sh -d 8 -v 64
+#例如 选择debian 8 64位为：./debian2.sh -d 8 -v 64
 
 while [[ $# -ge 1 ]]; do
   case $1 in
