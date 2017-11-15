@@ -1,5 +1,6 @@
 #!/bin/bash
 #例如 选择debian 8 64位为：./debian2.sh -d 8 -v 64
+#注意权限问题 chmod +x debian2.sh
 #修改了源为国内源 aliyun 镜像站
 while [[ $# -ge 1 ]]; do
   case $1 in
@@ -44,7 +45,7 @@ while [[ $# -ge 1 ]]; do
 [ -z $GRUBDIR ] && [ -f /boot/grub2/grub.cfg ] && GRUBOLD='0' && GRUBDIR='/boot/grub2' && GRUBFILE='grub.cfg'
 [ -z $GRUBDIR ] && [ -f /boot/grub/grub.conf ] && GRUBOLD='1' && GRUBDIR='/boot/grub' && GRUBFILE='grub.conf'
 [ -z $GRUBDIR -o -z $GRUBFILE ] && echo "Error! Not Found grub path." && exit 1
-
+#镜像版本
 [ -n $vDEBtmp ] && {
 [ "$vDEBtmp" == '7' -o "$vDEBtmp" == 'wheezy' ] && linuxdists='debian' && vDEB='wheezy';
 [ "$vDEBtmp" == '8' -o "$vDEBtmp" == 'jessie' ] && linuxdists='debian' && vDEB='jessie';
@@ -91,7 +92,7 @@ DebianMirrorDirectory="$(echo -n "$tmpMirror" |awk -F''${DebianMirror}'' '{print
 [ "$INStmp" == 'manual' ] && inVNC='y'
 }
 [ -n $WDtmp ] && myPASSWORD="$WDtmp"
-
+#默认密码Vicer 可自行修改
 [ -z $vDEB ] && vDEB='wheezy';
 [ -z $VER ] && VER='i386';
 [ -z $myPASSWORD ] && myPASSWORD='Vicer'
