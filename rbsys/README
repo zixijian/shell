@@ -3,8 +3,8 @@
 原址：http://51.ruyo.net/5561.html
 
 实战案例：
-滴滴云dc2云服务器默认centos 及uhuntu，
-换成debian并修改原脚本为debian2.sh ，并对文中的脚本进行了留存。
+滴滴云dc2云服务器默认centos 及ubuntu，
+成功换成debian并修改原脚本为debian2.sh ，并对文中的脚本进行了留存。
 修改项目：
 修改脚本中的镜像站为国内镜像站aliyun（否则慢死）
 
