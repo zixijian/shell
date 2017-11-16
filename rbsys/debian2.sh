@@ -1,7 +1,8 @@
 #!/bin/bash
 #例如 选择debian 8 64位为：./debian2.sh -d 8 -v 64
-#注意权限问题 chmod +x debian2.sh
-#修改了源为国内源 aliyun 镜像站
+#注意权限问题 chmod +x debian2.sh。
+#修改源了镜像地址为国内 aliyun 镜像站。
+#Debian默认密码 Vicer 可在下方修改。
 while [[ $# -ge 1 ]]; do
   case $1 in
     -v|--ver)
