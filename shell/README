@@ -5,3 +5,4 @@ ssr.sh ssr-libv版本
 rs.sh 锐速脚本
 bench.sh vps检测脚本
 ftp_upload.sh 一键通过ftp上传文件
+ssq.sh 机选双色球
