@@ -6,7 +6,8 @@ frp tcp转发
 
 frp目录为/usr/frp,自行配置成功后使用下面脚本
 
-frpc.sh客户端                                                                frps.sh服务端
+frpc.sh客户端
+frps.sh服务端
 
 复制为/etc/init.d/frpc
 复制为/etc/init.d/frps
