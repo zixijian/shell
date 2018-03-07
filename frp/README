@@ -5,7 +5,7 @@ frp tcp转发
 适用于debian9
 
 frp目录为/usr/frp,自行配置成功后使用下面脚本
-  frpc.sh客户端                                                                frps.sh服务端
+frpc.sh客户端                                                                frps.sh服务端
 
 复制为/etc/init.d/frpc
 复制为/etc/init.d/frps
@@ -21,7 +21,7 @@ update-rc.d frpc defaults
 执行reboot生效
 或者执行
 /etc/init.d/frps start|stop|restart
-/etc/init.d/frps start|stop|restart
+/etc/init.d/frpc start|stop|restart
 
 日志文件路径
 /tmp/frp_run.log
