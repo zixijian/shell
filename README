@@ -1,5 +1,10 @@
 #常用命令行
-1.rbsys
+
+rbsys
 一键网络重装debian ubuntu centos系统
-2.shell 
+
+shell 
 常用脚本
+
+frp
+frp相关脚本
