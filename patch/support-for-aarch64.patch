@@ -1,0 +1,65 @@
+From 759949ca9f235b5f7aae56a1584a00498c9ec534 Mon Sep 17 00:00:00 2001
+From: zixijian <zixijian@gmail.com>
+Date: Thu, 27 Dec 2018 07:43:28 +0800
+Subject: [PATCH] =?UTF-8?q?support=20for=20aarch64=20=E5=AE=89=E5=8D=93?=
+ =?UTF-8?q?=E6=89=8B=E6=9C=BA?=
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+---
+ dep/include/g3dlite/G3D/platform.h |  3 +++
+ dep/src/g3dlite/System.cpp         | 16 ++++++++++++++--
+ 2 files changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/dep/include/g3dlite/G3D/platform.h b/dep/include/g3dlite/G3D/platform.h
+index 864cdea11..9d6a1bb8a 100644
+--- a/dep/include/g3dlite/G3D/platform.h
++++ b/dep/include/g3dlite/G3D/platform.h
+@@ -294,6 +294,9 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR szCmdLine, int sw) {\
+ #       ifndef __stdcall
+ #           define __stdcall
+ #       endif
++#   elif defined(__aarch64__)
++        // CDECL does not apply to arm.
++#       define __cdecl
+ #   endif // calling conventions
+ 
+ /** @def G3D_CHECK_PRINTF_METHOD_ARGS()
+diff --git a/dep/src/g3dlite/System.cpp b/dep/src/g3dlite/System.cpp
+index 1e4905902..12306acf4 100644
+--- a/dep/src/g3dlite/System.cpp
++++ b/dep/src/g3dlite/System.cpp
+@@ -525,8 +525,11 @@ static bool checkForCPUID() {
+     // all known supported architectures have cpuid
+     // add cases for incompatible architectures if they are added
+     // e.g., if we ever support __powerpc__ being defined again
+-
+-    return true;
++#if defined(__aarch64__)
++    	return false;
++#else
++	return true;
++#endif
+ }
+ 
+ 
+@@ -1731,6 +1734,15 @@ void System::cpuid(CPUIDFunction func, uint32& eax, uint32& ebx, uint32& ecx, ui
+     edx = 0;
+ }
+ 
++#elif defined(G3D_LINUX) && defined(__aarch64__)
++// non-x86 CPU; no CPUID, at least in userspace
++void System::cpuid(CPUIDFunction func, uint32& eax, uint32& ebx, uint32& ecx, uint32& edx) {
++	eax = 0;
++	ebx = 0;
++	ecx = 0;
++	edx = 0;
++}
++		
+ #else
+ 
+ // See http://sam.zoy.org/blog/2007-04-13-shlib-with-non-pic-code-have-inline-assembly-and-pic-mix-well
+-- 
+2.11.0
+
