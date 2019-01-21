@@ -1,0 +1,108 @@
+diff --git a/dep/include/g3dlite/G3D/AtomicInt32.h b/dep/include/g3dlite/G3D/AtomicInt32.h
+index 2d63f998..92d4ed2f 100644
+--- a/dep/include/g3dlite/G3D/AtomicInt32.h
++++ b/dep/include/g3dlite/G3D/AtomicInt32.h
+@@ -76,13 +76,13 @@ public:
+ 
+ #       elif defined(G3D_LINUX) || defined(G3D_FREEBSD)
+ 
+-            int32 old;
+-            asm volatile ("lock; xaddl %0,%1"
+-                  : "=r"(old), "=m"(m_value) /* outputs */
+-                  : "0"(x), "m"(m_value)   /* inputs */
+-                  : "memory", "cc");
+-            return old;
+-            
++//	    int32 old;
++//            asm volatile ("lock; xaddl %0,%1"
++//                  : "=r"(old), "=m"(m_value) /* outputs */
++//                  : "0"(x), "m"(m_value)   /* inputs */
++//                  : "memory", "cc");
++//            return old;
++		return __sync_fetch_and_add(&m_value,1);
+ #       elif defined(G3D_OSX)
+ 
+             int32 old = m_value;
+@@ -115,14 +115,15 @@ public:
+             // Note: returns the newly decremented value
+             return InterlockedDecrement(&m_value);
+ #       elif defined(G3D_LINUX)  || defined(G3D_FREEBSD)
+-            unsigned char nz;
+-
+-            asm volatile ("lock; decl %1;\n\t"
+-                          "setnz %%al"
+-                          : "=a" (nz)
+-                          : "m" (m_value)
+-                          : "memory", "cc");
+-            return nz;
++//            unsigned char nz;
++//
++//          asm volatile ("lock; decl %1;\n\t"
++//                          "setnz %%al"
++//                          : "=a" (nz)
++//                          : "m" (m_value)
++//                          : "memory", "cc");
++//            return nz;
++		return __sync_fetch_and_add(&m_value,1);
+ #       elif defined(G3D_OSX)
+             // Note: returns the newly decremented value
+             return OSAtomicDecrement32(&m_value);
+@@ -142,7 +143,10 @@ public:
+     int32 compareAndSet(const int32 comperand, const int32 exchange) {
+ #       if defined(G3D_WIN32)
+             return InterlockedCompareExchange(&m_value, exchange, comperand);
+-#       elif defined(G3D_LINUX) || defined(G3D_FREEBSD) || defined(G3D_OSX)
++//#       elif defined(G3D_LINUX) || defined(G3D_FREEBSD) || defined(G3D_OSX)
++#       elif defined(G3D_LINUX) || defined(G3D_FREEBSD)
++	            return __sync_val_compare_and_swap(&m_value, comperand, exchange);
++#       elif defined(G3D_OSX)
+             // Based on Apache Portable Runtime
+             // http://koders.com/c/fid3B6631EE94542CDBAA03E822CA780CBA1B024822.aspx
+             int32 ret;
+diff --git a/dep/include/g3dlite/G3D/platform.h b/dep/include/g3dlite/G3D/platform.h
+index 11ba0127..4355f7a6 100644
+--- a/dep/include/g3dlite/G3D/platform.h
++++ b/dep/include/g3dlite/G3D/platform.h
+@@ -265,6 +265,10 @@ int WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrev, LPSTR szCmdLine, int sw) {\
+ #       ifndef __stdcall
+ #           define __stdcall
+ #       endif
++
++#   elif defined(__aarch64__)
++        // CDECL does not apply to arm.
++#       define __cdecl
+ #   endif // calling conventions
+ 
+ /** @def G3D_CHECK_PRINTF_METHOD_ARGS()
+diff --git a/dep/src/g3dlite/System.cpp b/dep/src/g3dlite/System.cpp
+index 1060ca08..ceaa7514 100644
+--- a/dep/src/g3dlite/System.cpp
++++ b/dep/src/g3dlite/System.cpp
+@@ -525,7 +525,11 @@ static bool checkForCPUID() {
+     // add cases for incompatible architectures if they are added
+     // e.g., if we ever support __powerpc__ being defined again
+ 
++#if defined(__aarch64__)
++    return false;
++#else
+     return true;
++#endif
+ }
+ 
+ 
+@@ -1718,6 +1722,14 @@ void System::cpuid(CPUIDFunction func, uint32& eax, uint32& ebx, uint32& ecx, ui
+     ecx = 0;
+     edx = 0;
+ }
++#elif defined(G3D_LINUX) && defined(__aarch64__)
++// non-x86 CPU; no CPUID, at least in userspace
++void System::cpuid(CPUIDFunction func, uint32& eax, uint32& ebx, uint32& ecx, uint32& edx) {
++    eax = 0;
++    ebx = 0;
++    ecx = 0;
++    edx = 0;
++}
+ 
+ #else
+ 
+        
