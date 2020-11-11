@@ -54,7 +54,7 @@ echo mousetrack off >> ~/.screenrc
 
 #个性化设置
 echo "-->个性化设置..."
-cat>.bashrc<<EOF
+cat>~/.bashrc<<EOF
 export PS1='[\w]\$ '
 export LS_OPTIONS='--color=auto'
 eval "`dircolors`"
@@ -64,7 +64,7 @@ alias l='ls $LS_OPTIONS -lA'
 alias tt='cd ~/tt && screen tt++ init.tt'
 alias ck='vim ~/.termux/termux.properties'
 EOF
-. .bashrc
+. ~/.bashrc
 
 echo "-->请重启 termux 并输入 tt 开始游戏。"
 
