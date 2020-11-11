@@ -66,5 +66,6 @@ alias ck='vim ~/.termux/termux.properties'
 EOF
 . ~/.bashrc
 
+echo "-->请将脚本放入内存卡tintin目录。"
 echo "-->请重启 termux 并输入 tt 开始游戏。"
 
