@@ -16,6 +16,7 @@ fi
 if [ "$first" != 1 ];then
   echo "-->请在弹出的权限请求中点击允许。"
   termux-setup-storage
+  sleep 1s
   check_storage
 fi
 }
