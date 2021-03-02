@@ -22,7 +22,7 @@ if [ "$first" != 1 ];then
 		*)
 			echo "unknown architecture"; exit 1 ;;
 		esac
-		wget "https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/ubuntu-base/releases/18.04.4/release/ubuntu-base-18.04-base-${archurl}.tar.gz" -O $tarball
+		wget "https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/ubuntu-base/releases/18.04.5/release/ubuntu-base-18.04.5-base-${archurl}.tar.gz" -O $tarball
 	fi
 	cur=`pwd`
 	mkdir -p "$folder"
