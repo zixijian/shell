@@ -25,7 +25,7 @@ check_storage
 #创建工作目录
 echo "-->创建工作目录：~/storage/shared/tintin"
 mkdir -p ~/storage/shared/tintin
-echo "-->创建软连接：链接tintin目录至~/tt"
+echo "-->创建软连接：链接 tintin 目录至 ~/tt"
 ln -s ~/storage/shared/tintin ~/tt
 
 #替换清华源
@@ -33,7 +33,7 @@ echo "-->替换软件源为国内清华开源镜像站..."
 sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/termux-packages-24 stable main@' $PREFIX/etc/apt/sources.list
 sed -i 's@^\(deb.*games stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/game-packages-24 games stable@' $PREFIX/etc/apt/sources.list.d/game.list
 sed -i 's@^\(deb.*science stable\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/science-packages-24 science stable@' $PREFIX/etc/apt/sources.list.d/science.list
-apt update && apt upgrade -y
+pkg up -y
 
 #安装tintin相关软件
 echo "-->安装 tintin++ 及相关软件..."
@@ -43,13 +43,13 @@ pkg install screen tintin++ git vim -y
 mkdir ~/.termux
 file=~/.termux/termux.properties
 touch $file
-echo "-->设置工具条，左滑长按KEYBOARD开关..."
+echo "-->设置工具条，左滑长按 KEYBOARD 开关..."
 cat>$file<<EOF
 extra-keys = [['ESC','ALT','PGUP','HOME','UP','END','chat ','ENTER'],['TAB','CTRL','PGDN','LEFT','DOWN','RIGHT','orz','BACKSPACE']]
 EOF
 
 #转码设置
-echo "-->GBK转码设置..."
+echo "-->GBK 转码设置..."
 echo defencoding GBK > ~/.screenrc
 echo mousetrack off >> ~/.screenrc
 
@@ -67,6 +67,6 @@ alias ck='vim ~/.termux/termux.properties'
 EOF
 . ~/.bashrc
 
-echo "-->请将脚本放入内存卡tintin目录。"
+echo "-->请将脚本放入内存卡(内部存储) tintin 目录。"
 echo "-->请重启 termux 并输入 tt 开始游戏。"
 
