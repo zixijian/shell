@@ -41,7 +41,7 @@ fi
 
 # check min limit
 if [ $capacity -le 35 ]; then
-# stop
+# start
   echo 1 > /sys/class/power_supply/battery/charging_enabled
 fi
 !
