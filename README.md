@@ -1,17 +1,19 @@
-# 说明
+# START
+
+本仓库存储常用 shell 脚本。
 
 ---
 
-## rbsys
-一键网络重装debian ubuntu centos系统
+- rbsys  
+vps 一键网络重装系统
 
-## shell 
-常用脚本
+- shell   
+常用脚本  
 
-## frp
-frp相关脚本
+- frp  
+frp 相关脚本
 
-## patch
+- patch  
 补丁
 
 ---

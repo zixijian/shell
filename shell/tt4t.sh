@@ -45,7 +45,7 @@ file=~/.termux/termux.properties
 touch $file
 echo "-->设置工具条，左滑长按 KEYBOARD 开关..."
 cat>$file<<EOF
-extra-keys = [['ESC','ALT','PGUP','HOME','UP','END','chat ','ENTER'],['TAB','CTRL','PGDN','LEFT','DOWN','RIGHT','orz','BACKSPACE']]
+extra-keys = [['ESC','|','BACKSLASH','HOME','UP','END','PGUP','chat '],['TAB','CTRL','ALT','LEFT','DOWN','RIGHT','PGDN','KEYBOARD']]
 EOF
 
 #转码设置
