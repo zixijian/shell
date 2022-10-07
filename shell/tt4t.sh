@@ -31,7 +31,7 @@ ln -s ~/storage/shared/tintin ~/tt
 #替换清华源
 echo "-->替换软件源为国内清华开源镜像站..."
 sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.tuna.tsinghua.edu.cn/termux/apt/termux-main stable main@' $PREFIX/etc/apt/sources.list
-pkg update && pkg upgrade -y
+apt update && apt upgrade -y
 
 #安装tintin相关软件
 echo "-->安装 tintin++ 及相关软件..."
